@@ -4,7 +4,7 @@ window.onload = init;//  After the window has been loaded, go to init
 var canvas;
 var ctx;
 var balls = [];
-
+var boid;
 
 function init(){
   //get the canvas
@@ -16,8 +16,8 @@ function init(){
   canvas.style.backgroundColor = 'rgba(12,15,25, .9)';
   // get the context
   ctx = canvas.getContext('2d'); // This is the context
-  makeBalls(83);
-
+  //makeBalls(1);
+  boid = new Boid();
   animate();
 }
 
@@ -25,9 +25,10 @@ function animate(){
 
   requestAnimationFrame(animate);
   ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
-  for(let i = 0; i < balls.length; i++){
-    balls[i].run();
-  }
+  //for(let i = 0; i < balls.length; i++){
+    //balls[i].run();
+  //}
+  boid.run();
 }
 
 function makeBalls(numBalls){
