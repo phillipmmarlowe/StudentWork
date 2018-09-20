@@ -31,22 +31,23 @@ Orbiter.prototype.render = function(){
 Orbiter.prototype.run = function(){
   this.update();
   this.render();
-
 }
 
 Boid.prototype.run = function(){
   this.update();
   this.render();
 }
-
-Orbiter.prototype.update = function(){
-  this.distance.rotate(this.vel);
-  Orbiter.prototype.render = function(){
-  var loc = JSVector.addGetNew(this.boid.loc,this.distance);
+Boid.prototype.render = function(){
   ctx.strokeStyle = 'rgba(55,50,220)';
   ctx.fillStyle = "rgba(255,162,12)";
   ctx.beginPath();
-  ctx.arc(loc.x,loc.y, this.rad, 0, Math.PI*2, false);
+  ctx.arc(this.loc.x,this.loc.y, this.rad, 0, Math.PI*2, false);
   ctx.stroke();
   ctx.fill();
+}
+Orbiter.prototype.update = function(){
+  this.distance.rotate(this.vel);
+}
+Orbiter.prototype.render = function(){
+  var loc = JSVector.addGetNew(this.boid.loc,this.distance);
 }
