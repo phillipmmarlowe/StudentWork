@@ -5,6 +5,7 @@ var canvas;
 var ctx;
 var balls = [];
 var boid;
+var orbiter;
 
 function init(){
   //get the canvas
@@ -18,6 +19,7 @@ function init(){
   ctx = canvas.getContext('2d'); // This is the context
   //makeBalls(1);
   boid = new Boid();
+  orbiter = new Orbiter(boid);
   animate();
 }
 
@@ -29,6 +31,7 @@ function animate(){
     //balls[i].run();
   //}
   boid.run();
+  orbiter.run();
 }
 
 function makeBalls(numBalls){
