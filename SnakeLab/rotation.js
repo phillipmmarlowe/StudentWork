@@ -1,15 +1,15 @@
 
 function Boid(){
   //this.orbiter = new Orbiter(this);
-  this.loc = new JSVector(200,300);
+  this.loc = new JSVector(Math.random()*canvas.width,Math.random()*canvas.height);
   this.vel = new JSVector(2,2);
-  this.rad = 45;
+  this.rad = 20;
 }
 
 function Orbiter(boid){
   this.rad = 20;
   this.distance = new JSVector(100,0);
-  this.vel = 0.08;
+  this.vel = 0.1;
   this.boid = boid;
 }
 

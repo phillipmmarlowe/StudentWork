@@ -3,9 +3,9 @@ window.onload = init;//  After the window has been loaded, go to init
 // global variables for canvas and context
 var canvas;
 var ctx;
-var boid;
-var segment;
-var snake;
+var numsnakes = 4;
+var snakes = [];
+
 function init(){
   //get the canvas
   canvas = document.getElementById('cnv');
@@ -16,9 +16,11 @@ function init(){
   canvas.style.backgroundColor = 'rgba(12,15,25, .9)';
   // get the context
   ctx = canvas.getContext('2d'); // This is the context
-  boid = new Boid();
-  segment = new Segment();
-  snake = new Snake(segment);
+  for(var i=0;i<numsnakes;i++){
+  var boid = new Boid();
+  var snake = new Snake(10, boid);
+  snakes.push(snake);
+  }
   animate();
 }
 
@@ -29,7 +31,8 @@ function animate(){
   //for(let i = 0; i < balls.length; i++){
     //balls[i].run();
   //}
-  boid.run();
   //orbiter.run();
-  snake.run();
+  for(var i=0;i<snakes.length;i++){
+    snakes[i].run();
+  }
 }
