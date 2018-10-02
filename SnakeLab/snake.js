@@ -4,7 +4,11 @@ function Segment(){
 }
 function Snake(radius, boid){
   this.seglist = [];
-  this.color ;
+  var red = Math.random()*128+128;
+  var green = Math.random()*128+128;
+  var blue = Math.random()*128+128;
+  this.color = "rgb("+red+","+green+","+blue+")";
+  boid.color = this.color;
   this.segdist = radius*2;
   this.boiddist = 100;
   this.radius = radius;
@@ -26,8 +30,8 @@ Snake.prototype.run = function(){
 }
 Snake.prototype.render = function(){
   for(var i=0;i<this.segnum;i++){
-    ctx.strokeStyle = 'rgba(55,50,220)';
-    ctx.fillStyle = "rgba(100,162,120)";
+    ctx.strokeStyle = this.color;
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.seglist[i].loc.x,this.seglist[i].loc.y,this.radius, 0, Math.PI*2, false);
     ctx.stroke();

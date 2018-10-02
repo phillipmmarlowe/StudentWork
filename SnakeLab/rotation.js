@@ -45,8 +45,8 @@ Boid.prototype.update = function(){
 }
 
 Boid.prototype.render = function(){
-  ctx.strokeStyle = 'rgba(55,50,220)';
-  ctx.fillStyle = "rgba(100,162,120)";
+  ctx.strokeStyle = this.color;
+  ctx.fillStyle = this.color;
   ctx.beginPath();
   ctx.arc(this.loc.x,this.loc.y, this.rad, 0, Math.PI*2, false);
   ctx.stroke();
