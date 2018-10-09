@@ -1,10 +1,12 @@
 var canvas;
 var ctx;
 function Ecosystem(){
-  this.numsnakes = 6;
+  this.numsnakes = 10;
   this.snakes = [];
   this.balls = [];
-  this.numBalls = 10;
+  this.numBalls = 15;
+  this.numOrbiters = 8;
+  this.orbiters = [];
   canvas = document.getElementById('cnv');
   // Set the dimensions of the canvas
   canvas.width = window.innerWidth;
@@ -14,9 +16,9 @@ function Ecosystem(){
   //get the context
   ctx = canvas.getContext('2d'); // This is the context
   for(var i=0;i<this.numsnakes;i++){
-  var boid = new Boid();
-  var snake = new Snake(10, boid);
-  this.snakes.push(snake);
+    var snakeboid = new Boid();
+    var snake = new Snake(10, snakeboid);
+    this.snakes.push(snake);
   }
   for(let i = 0; i < this.numBalls; i++){
     var x = Math.random()*canvas.width;
@@ -28,11 +30,18 @@ function Ecosystem(){
     var r = Math.random()*20 + 10;
     this.balls.push(new Ball(loc, vel, r))
   }
+  for(var i=0;i<this.numOrbiters;i++){
+    var orbboid = new Boid();
+    var orbiter = new Orbiter(orbboid);
+    this.orbiters.push(orbboid);
+  }
+
 }
 
 Ecosystem.prototype.run = function(){
   this.snakesrun();
   this.ballsrun();
+  this.orbitersrun();
 }
 
 Ecosystem.prototype.snakesrun = function(){
@@ -47,5 +56,11 @@ Ecosystem.prototype.ballsrun = function(){
   //var balls = [];
   for(let i = 0; i < this.balls.length; i++){
     this.balls[i].run();
+  }
+}
+
+Ecosystem.prototype.orbitersrun = function(){
+  for(var i=0;i<this.orbiters.length;i++){
+    this.orbiters[i].run();
   }
 }

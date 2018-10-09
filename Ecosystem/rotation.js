@@ -1,15 +1,15 @@
 
 function Boid(){
-  //this.orbiter = new Orbiter(this);
+  this.orbiter = new Orbiter(this);
   this.loc = new JSVector(Math.random()*canvas.width,Math.random()*canvas.height);
   this.vel = new JSVector(2,2);
   this.rad = 20;
 }
 
 function Orbiter(boid){
-  this.rad = 20;
+  this.rad = 10;
   this.distance = new JSVector(100,0);
-  this.vel = 0.001;
+  this.vel = 0.1;
   this.boid = boid;
 }
 
@@ -35,6 +35,7 @@ Orbiter.prototype.render = function(){
 
 Boid.prototype.run = function(){
   this.checkEdges();
+  this.orbiter.run();
   this.update();
   this.render();
 }
