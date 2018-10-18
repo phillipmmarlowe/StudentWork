@@ -1,13 +1,14 @@
-function Particle(loc, vel, acc, rad, lifespan){
+function Particle(loc, vel, acc, base, height, lifespan){
   this.loc = loc;
   this.vel = vel;
-  this.rad = rad;
   this.acc = acc;
+  this.base = base;
+  this.height = height;
   this.lifespan = lifespan;
 }
 
 function ParticleSys(){
-  this.numParticles = 10;
+  this.numParticles = 12;
   this.particles = [];
   for(var i = 0;i<this.numParticles;i++){
     var x = Math.random()*window.innerWidth;
@@ -18,10 +19,12 @@ function ParticleSys(){
     var vel = new JSVector(dx, dy);
     var ax = 1;
     var ay = 1;
+    var base = 20;
+    var height = 20;
     var acc = new JSVector(ax, ay);
-    var r = Math.random()*20 + 10;
-    var lifespan = Math.random()*700;
-    this.particles.push(new Particle(loc, vel, acc, r, lifespan))
+    //var lifespan = Math.random()*1000;
+    var lifespan = 1000;
+    this.particles.push(new Particle(loc, vel, acc, base, height, lifespan))
   }
 }
 
@@ -40,7 +43,9 @@ Particle.prototype.update = function(){
   this.loc.y += this.vel.y;
   this.vel.x += this.acc.x;
   this.vel.y += this.acc.y;
-  this.lifespan -= 1;
+  this.vel.limit(10);
+  this.acc.limit(5);
+  //this.lifespan -= 1;
   this.render();
 }
 
@@ -48,11 +53,15 @@ Particle.prototype.update = function(){
 Particle.prototype.render = function(){
   ctx.strokeStyle = 'rgba(75,0,130)';
   ctx.fillStyle = "rgba(75,0,130)";
-  ctx.fill();
+  ctx.translate(this.loc.x,this.loc.y);
+  ctx.rotate(this.vel.getDirection());
   ctx.beginPath();
-  ctx.arc(this.loc.x,this.loc.y, this.rad, Math.PI*2, 0, false);
-  ctx.stroke();
-
+  ctx.lineTo(this.base,0);
+  ctx.lineTo(this.base/2,this.height);
+  ctx.lineTo(0,0);
+  //ctx.arc(this.loc.x,this.loc.y, this.rad, Math.PI*2, 0, false);
+  ctx.fill();
+  ctx.restore();
 }
 
 // Particle.prototype.healthcheck = function(){
