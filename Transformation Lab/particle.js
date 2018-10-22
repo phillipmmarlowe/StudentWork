@@ -8,22 +8,24 @@ function Particle(loc, vel, acc, base, height, lifespan){
 }
 
 function ParticleSys(){
-  this.numParticles = 12;
+  this.numParticles = 13;
   this.particles = [];
+  var templocx = 300;
+  var templocy = 300;
   for(var i = 0;i<this.numParticles;i++){
-    var x = Math.random()*window.innerWidth;
-    var y = Math.random()*window.innerHeight;
-    var loc = new JSVector(x, y);
+    //var x = Math.random()*window.innerWidth;
+    //var y = Math.random()*window.innerHeight;
+    var loc = new JSVector(templocx, templocy);
     var dx = Math.random()*10-5;
     var dy = Math.random()*10-5;
     var vel = new JSVector(dx, dy);
-    var ax = 1;
-    var ay = 1;
-    var base = 20;
-    var height = 20;
+    var ax = Math.random()*2-1;
+    var ay = Math.random()*2-1;
+    var base = Math.random()*30;
+    var height = Math.random()*30;
     var acc = new JSVector(ax, ay);
     //var lifespan = Math.random()*1000;
-    var lifespan = 1000;
+    var lifespan = Math.random()*400;
     this.particles.push(new Particle(loc, vel, acc, base, height, lifespan))
   }
 }
@@ -41,11 +43,13 @@ Particle.prototype.checkEdges = function(){
 Particle.prototype.update = function(){
   this.loc.x += this.vel.x;
   this.loc.y += this.vel.y;
+  this.acc.x = Math.random()*2-1;
+  this.acc.y = Math.random()*2-1;
   this.vel.x += this.acc.x;
   this.vel.y += this.acc.y;
   this.vel.limit(10);
   this.acc.limit(5);
-  //this.lifespan -= 1;
+  this.lifespan -= 1;
   this.render();
 }
 
@@ -53,12 +57,16 @@ Particle.prototype.update = function(){
 Particle.prototype.render = function(){
   ctx.strokeStyle = 'rgba(75,0,130)';
   ctx.fillStyle = "rgba(75,0,130)";
+  ctx.save();
   ctx.translate(this.loc.x,this.loc.y);
   ctx.rotate(this.vel.getDirection());
   ctx.beginPath();
-  ctx.lineTo(this.base,0);
-  ctx.lineTo(this.base/2,this.height);
-  ctx.lineTo(0,0);
+  ctx.moveTo(0-this.height/2,0-this.base/2);
+  ctx.lineTo(this.height/2,0);
+  ctx.lineTo(0-this.height/2,this.base/2);
+  //ctx.moveTo(-10,-10);
+  //ctx.lineTo(10,0);
+  //ctx.lineTo(-10,10);
   //ctx.arc(this.loc.x,this.loc.y, this.rad, Math.PI*2, 0, false);
   ctx.fill();
   ctx.restore();
