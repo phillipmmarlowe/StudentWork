@@ -10,22 +10,21 @@ function Particle(loc, vel, acc, base, height, lifespan){
 function ParticleSys(){
   this.numParticles = 13;
   this.particles = [];
-  var templocx = 300;
-  var templocy = 300;
   for(var i = 0;i<this.numParticles;i++){
     //var x = Math.random()*window.innerWidth;
     //var y = Math.random()*window.innerHeight;
-    var loc = new JSVector(templocx, templocy);
-    var dx = Math.random()*10-5;
-    var dy = Math.random()*10-5;
+    var loc = new JSVector(500, 500);
+    var dx = Math.random()*2-1;
+    var dy = Math.random()*-2-1;
     var vel = new JSVector(dx, dy);
-    var ax = Math.random()*2-1;
-    var ay = Math.random()*2-1;
-    var base = Math.random()*30;
-    var height = Math.random()*30;
+    var ax = 0;
+    var ay = 0.01;
+    var base = 30;
+    var height = 30;
     var acc = new JSVector(ax, ay);
     //var lifespan = Math.random()*1000;
-    var lifespan = Math.random()*400;
+    // var lifespan = Math.random()*1500;
+    var lifespan = Math.random()*200+300;
     this.particles.push(new Particle(loc, vel, acc, base, height, lifespan))
   }
 }
@@ -37,14 +36,14 @@ Particle.prototype.run = function(){
 
 Particle.prototype.checkEdges = function(){
   if(this.loc.x > window.innerWidth || this.loc.x < 0)  this.vel.x = -this.vel.x
-  if(this.loc.y > window.innerHeight || this.loc.y < 0)  this.vel.y = -this.vel.y
+  if((this.loc.y > window.innerHeight || this.loc.y < 0 )&& this.lifespan > 200)  this.vel.y = -this.vel.y
 }
 
 Particle.prototype.update = function(){
   this.loc.x += this.vel.x;
   this.loc.y += this.vel.y;
-  this.acc.x = Math.random()*2-1;
-  this.acc.y = Math.random()*2-1;
+  // this.acc.x = Math.random()*2-1;
+  // this.acc.y = Math.random()*2-1;
   this.vel.x += this.acc.x;
   this.vel.y += this.acc.y;
   this.vel.limit(10);
