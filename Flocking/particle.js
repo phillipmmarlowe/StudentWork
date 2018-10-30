@@ -16,7 +16,7 @@ function ParticleSys(x,y){
   }
 }
 
-ParticleSys.prototype.run() = function(){
+ParticleSys.prototype.run = function(){
   for(var i=0;i<this.particles.length;i++){
     this.particles[i].run();
   }
@@ -43,8 +43,8 @@ Particle.prototype.update = function(){
   // this.acc.y = Math.random()*2-1;
   this.vel.x += this.acc.x;
   this.vel.y += this.acc.y;
-  this.vel.limit(10);
-  //this.acc.limit(5);
+  this.vel.limit(1);
+  //this.acc.limit();
   this.lifespan -= 1;
   this.render();
 }
@@ -78,11 +78,13 @@ ParticleSys.prototype.healthcheck = function(i){
     this.particles.splice(i, 1);
     this.addParticle();
   }
+}
 ParticleSys.prototype.addParticle = function(){
     //var x = Math.random()*window.innerWidth;
     //var y = Math.random()*window.innerHeight;
-    var dx = Math.random()*2-1;
-    var dy = Math.random()*-2-1;
+    ///var locc = new JSVector(Math.random()*100-50, Math.random()*100-50);
+    var dx = Math.random()*100-50;
+    var dy = Math.random()*-1-1;
     var vel = new JSVector(dx, dy);
     var ax = 0;
     var ay = 0.01;
@@ -92,5 +94,7 @@ ParticleSys.prototype.addParticle = function(){
     //var lifespan = Math.random()*1000;
     // var lifespan = Math.random()*1500;
     var lifespan = Math.random()*200+300;
+    //var temp = new JSVector(mouseX/2,mouseY/2);
+    //this.loc = JSVector.addGetNew(this.loc,temp);
     this.particles.push(new Particle(this.loc, vel, acc, base, height, lifespan));
 }
