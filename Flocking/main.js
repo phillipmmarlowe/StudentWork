@@ -3,8 +3,6 @@ window.addEventListener("load",init);//  After the window has been loaded, go to
 var canvas;
 var ctx;
 var particleSystems;
-var mouseX;
-var mouseY;
 function init(){
   //get the canvas
   canvas = document.getElementById('cnv');
@@ -35,6 +33,4 @@ function animate(){
 
   function handleMouseClick(event){
     particleSystems.push(new ParticleSys(event.clientX,event.clientY));
-    mouseX = event.clientX;
-    mouseY = event.clientY;
   }
