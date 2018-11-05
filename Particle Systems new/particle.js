@@ -1,5 +1,6 @@
 function Particle(loc, vel, acc, base, height, lifespan){
-  this.loc = loc.copy();
+  //this.loc = loc.copy();
+  this.loc = loc;
   this.vel = vel;
   this.acc = acc;
   this.base = base;
@@ -13,7 +14,7 @@ function Particle(loc, vel, acc, base, height, lifespan){
 }
 
 function ParticleSys(x,y){
-  this.numParticles = 200;
+  this.numParticles = 1;
   this.particles = [];
   this.loc = new JSVector(x,y);
   for(var i = 0;i<this.numParticles;i++){
@@ -39,7 +40,7 @@ Particle.prototype.run = function(){
 
 Particle.prototype.checkEdges = function(){
   if(this.loc.x > window.innerWidth || this.loc.x < 0)  this.vel.x = -this.vel.x
-  if((this.loc.y > window.innerHeight || this.loc.y < 0 )&& this.lifespan > 500)  this.vel.y = -this.vel.y
+  if(this.loc.y > window.innerHeight || this.loc.y < 0 )  this.vel.y = -this.vel.y
 }
 
 Particle.prototype.update = function(){
@@ -50,10 +51,11 @@ Particle.prototype.update = function(){
   if(this.lifespan<900){
   this.vel.x += this.acc.x;
   this.vel.y += this.acc.y;
+  this.seek(testtarget);
 }
   this.vel.limit(1);
   //this.acc.limit();
-  this.lifespan -= 1;
+  //this.lifespan -= 1;
   this.render();
 }
 
@@ -106,4 +108,14 @@ ParticleSys.prototype.addParticle = function(){
 ParticleSys.prototype.updateOpacity = function(i){
   var temp = (this.particles[i].lifespan/1000);
   this.particles[i].opacity = temp;
+}
+
+Particle.prototype.seek = function(target){
+  var desired = new JSVector();
+  desired = JSVector.subGetNew(target.loc,this.loc);
+  desired.limit(3);
+  var steer = new JSVector();
+  steer = JSVector.subGetNew(desired,this.vel);
+  this.vel.x += steer.x;
+  this.vel.y += steer.y;
 }
