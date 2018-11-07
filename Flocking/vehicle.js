@@ -1,4 +1,4 @@
-function Vehicle(loc, vel, acc){
+function Vehicle(loc, vel, acc, base, height){
   this.loc = loc;
   this.vel = vel;
   this.acc = acc;
@@ -28,12 +28,12 @@ Vehicle.prototype.update = function(){
   this.loc.y += this.vel.y;
   // this.acc.x = Math.random()*2-1;
   // this.acc.y = Math.random()*2-1;
-  if(this.lifespan<900){
-  this.vel.x += this.acc.x;
-  this.vel.y += this.acc.y;
-  this.seek(testtarget);
-}
-  this.vel.limit(1);
+//   if(this.lifespan<900){
+   this.vel.x += this.acc.x;
+   this.vel.y += this.acc.y;
+//   this.seek(testtarget);
+// }
+  this.vel.limit(5);
   //this.acc.limit();
   //this.lifespan -= 1;
   this.render();
@@ -47,4 +47,14 @@ Vehicle.prototype.checkEdges = function(){
   if(this.loc.x < 0) this.loc.x = canvas.width;
   if(this.loc.y > canvas.height)  this.loc.y = 0;
   if(this.loc.y < 0) this.loc.y = canvas.height;
+}
+
+Vehicle.prototype.cohesion = function(){
+  for(var i=0;i<vehicles.length;i++){
+    var v = vehicles[i];
+    if(v==this){
+      continue;
+    }
+    
+  }
 }
