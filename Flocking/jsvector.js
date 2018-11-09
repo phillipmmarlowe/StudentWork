@@ -67,8 +67,8 @@ JSVector.addGetNew = function(v1,v2){
 // Class method to return a new vector that is the difference of two vectors
 JSVector.subGetNew = function(v1,v2){
   var v3 = new JSVector();
-  v3.x=v1.x+v2.x;
-  v3.y=v1.y+v2.y;
+  v3.x=v1.x-v2.x;
+  v3.y=v1.y-v2.y;
   return v3;
 }
 
