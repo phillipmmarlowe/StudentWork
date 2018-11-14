@@ -15,7 +15,7 @@ function init(){
   // get the context
   ctx = canvas.getContext('2d'); // This is the context
   vehicles = [];
-  for(var i = 0;i<200;i++){
+  for(var i = 0;i<20;i++){
     var x = Math.random()*canvas.width;
     var y = Math.random()*canvas.height;
     var loc = new JSVector(x, y);
