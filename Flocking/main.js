@@ -25,7 +25,7 @@ function init(){
     var ax = 0;
     var ay = 0;
     var base = 14;
-    var height = 14;
+    var height = 20;
     var acc = new JSVector(ax, ay);
     vehicles.push(new Vehicle(loc, vel, acc, base, height));
   }
