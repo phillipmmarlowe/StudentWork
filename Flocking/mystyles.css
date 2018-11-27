@@ -14,3 +14,12 @@ body{
  margin-top: 20px;
 
 }
+
+#sliderDiv{
+  background-color: #125689;
+  height: 604px;
+  width: 400px;
+  border: solid black 1px;
+  float:left;
+
+}
