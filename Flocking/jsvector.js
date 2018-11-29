@@ -18,8 +18,9 @@ function JSVector(x,y){
 // Set the magnitude of the vector,
 // retaining the angle (direction).
 JSVector.prototype.setMagnitude = function(mag){
-  this.y= mag*Math.sin(this.getDirection());
-  this.x= mag*Math.cos(this.getDirection());
+  var d = this.getDirection();
+  this.y= mag*Math.sin(d);
+  this.x= mag*Math.cos(d);
   return this;
 }
 
@@ -74,15 +75,15 @@ JSVector.subGetNew = function(v1,v2){
 
 // Multiply this vector by a scalar
 JSVector.prototype.multiply = function(scalar){
-  var NewMag = this.getMagnitude()*scalar;
-  this.setMagnitude(NewMag);
+  this.y *= scalar;
+  this.x *= scalar;
   return this;
 }
 
 // Divide this vector by a scalar
 JSVector.prototype.divide = function(scalar){
-  var NewMag = this.getMagnitude()/scalar;
-  this.setMagnitude(NewMag);
+  this.y /= scalar;
+  this.x /= scalar;
   return this;
 }
 

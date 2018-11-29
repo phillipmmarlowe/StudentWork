@@ -1,5 +1,6 @@
 window.addEventListener("load",init);//  After the window has been loaded, go to init
 // global variables for canvas and context
+//use change event listener for sliders
 var canvas;
 var ctx;
 var vehicles;
@@ -24,8 +25,8 @@ function init(){
     var vel = new JSVector(dx, dy);
     var ax = 0;
     var ay = 0;
-    var base = Math.random()*10+10;
-    var height = base;
+    var base = 14;
+    var height = 20;
     var acc = new JSVector(ax, ay);
     vehicles.push(new Vehicle(loc, vel, acc, base, height));
   }
