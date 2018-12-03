@@ -2,6 +2,7 @@
 
 body{
    background-color: #BB99AA;
+   color: white;
    margin:0;
  }
 
@@ -20,6 +21,12 @@ body{
   height: 604px;
   width: 400px;
   border: solid black 1px;
-  float:left;
+}
 
+#cnv{
+  float:left;
+}
+
+.sliderValue{
+  display: inline;
 }

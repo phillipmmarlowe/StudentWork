@@ -1,9 +1,9 @@
-var maxspeed = 2;
-var maxsteeringsep = .3;
+//var maxspeed = 2;
+//var maxsteeringsep = .3;
 var seperationradius = 40;
-var maxsteeringco = .3;
+//var maxsteeringcoh = .3;
 var cohesionradius = 50;
-var maxsteeringalign = .1;
+//var maxsteeringalign = .1;
 var alignmentradius = 200;
 function Vehicle(loc, vel, acc, base, height){
   this.loc = loc;
@@ -39,7 +39,7 @@ Vehicle.prototype.update = function(){
   //}
   this.vel.x += this.acc.x;
   this.vel.y += this.acc.y;
-  this.vel.limit(maxspeed);
+  this.vel.limit(vehiclemaxspeedval);
   this.loc.x += this.vel.x;
   this.loc.y += this.vel.y;
   // this.acc.x = Math.random()*2-1;
@@ -68,14 +68,14 @@ Vehicle.prototype.seperation = function(){
     }
     if(this.loc.distance(v.loc)<seperationradius){
       var desired = JSVector.subGetNew(this.loc,v.loc);
-      desired.setMagnitude(maxspeed);
+      desired.setMagnitude(vehiclemaxspeedval);
       sum.add(desired);
     }
   }
   if(sum.getMagnitude()>0){
-    sum.setMagnitude(maxspeed);
+    sum.setMagnitude(vehiclemaxspeedval);
     var steering = JSVector.subGetNew(sum,this.vel);
-    steering.limit(maxsteeringsep);
+    steering.limit(seperationval);
     this.applyForce(steering);
   }
 
@@ -98,7 +98,7 @@ Vehicle.prototype.cohesion = function(){
   sum.divide(count);
   var desired = JSVector.subGetNew(sum,this.loc);
   var steering = JSVector.subGetNew(desired,this.vel);
-  steering.limit(maxsteeringco);
+  steering.limit(cohesionval);
   this.applyForce(steering);
   } else {
     var steering = new JSVector();
@@ -121,9 +121,9 @@ Vehicle.prototype.alignment = function(){
   }
   if(count>0){
     var desired = sum.divide(count);
-    desired.setMagnitude(maxspeed);
+    desired.setMagnitude(vehiclemaxspeedval);
     var steering = JSVector.subGetNew(this.vel,desired);
-    steering.setMagnitude(maxsteeringalign);
+    steering.setMagnitude(alignmentval);
     this.applyForce(steering);
 }
 }

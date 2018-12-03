@@ -4,9 +4,29 @@ window.addEventListener("load",init);//  After the window has been loaded, go to
 var canvas;
 var ctx;
 var vehicles;
+var seperationslider;
+var seperationval;
+var cohesionslider;
+var cohesionval;
+var alignmentslider;
+var alignmentval;
+var vehiclemaxspeedslider;
+var vehiclemaxspeedval;
 function init(){
   //get the canvas
   canvas = document.getElementById('cnv');
+  seperationslider = document.getElementById('seperation');
+  seperationslider.addEventListener('input', seperationsliderhandle);
+  seperationval = seperationslider.value;
+  cohesionslider = document.getElementById('cohesion');
+  cohesionslider.addEventListener('input', cohesionsliderhandle);
+  cohesionval = cohesionslider.value;
+  alignmentslider = document.getElementById('alignment');
+  alignmentslider.addEventListener('input', alignmentsliderhandle);
+  alignmentval = alignmentslider.value;
+  vehiclemaxspeedslider = document.getElementById('vehiclemaxspeed');
+  vehiclemaxspeedslider.addEventListener('input', vehiclemaxspeedhandle);
+  vehiclemaxspeedval = vehiclemaxspeedslider.value;
   // Set the dimensions of the canvas
   canvas.width = 800;
   canvas.height = 600;
@@ -25,8 +45,8 @@ function init(){
     var vel = new JSVector(dx, dy);
     var ax = 0;
     var ay = 0;
-    var base = 14;
-    var height = 20;
+    var base = Math.random()*10+10;
+    var height = Math.random()*10+10;
     var acc = new JSVector(ax, ay);
     vehicles.push(new Vehicle(loc, vel, acc, base, height));
   }
@@ -49,4 +69,25 @@ function animate(){
   //     }
   //   }
   // }
+}
+
+function seperationsliderhandle(){
+  console.log(this.nextSibling.nextSibling.firstChild);
+  this.nextSibling.nextSibling.firstChild.nodeValue = this.value;
+  seperationval = this.value;
+}
+
+function cohesionsliderhandle(){
+  console.log(this.nextSibling);
+  cohesionval = this.value;
+}
+
+function alignmentsliderhandle(){
+  console.log(this.nextSibling);
+  alignmentval = this.value;
+}
+
+function vehiclemaxspeedhandle(){
+  console.log(this.nextSibling);
+  vehiclemaxspeedval = this.value;
 }
