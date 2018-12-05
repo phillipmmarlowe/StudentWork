@@ -18,15 +18,19 @@ function init(){
   seperationslider = document.getElementById('seperation');
   seperationslider.addEventListener('input', seperationsliderhandle);
   seperationval = seperationslider.value;
+  seperationslider.nextSibling.nextSibling.firstChild.nodeValue = seperationval;
   cohesionslider = document.getElementById('cohesion');
   cohesionslider.addEventListener('input', cohesionsliderhandle);
   cohesionval = cohesionslider.value;
+  cohesionslider.nextSibling.nextSibling.firstChild.nodeValue = cohesionval;
   alignmentslider = document.getElementById('alignment');
   alignmentslider.addEventListener('input', alignmentsliderhandle);
   alignmentval = alignmentslider.value;
+  alignmentslider.nextSibling.nextSibling.firstChild.nodeValue = alignmentval;
   vehiclemaxspeedslider = document.getElementById('vehiclemaxspeed');
   vehiclemaxspeedslider.addEventListener('input', vehiclemaxspeedhandle);
   vehiclemaxspeedval = vehiclemaxspeedslider.value;
+  vehiclemaxspeedslider.nextSibling.nextSibling.firstChild.nodeValue = vehiclemaxspeedval;
   // Set the dimensions of the canvas
   canvas.width = 800;
   canvas.height = 600;
@@ -45,8 +49,8 @@ function init(){
     var vel = new JSVector(dx, dy);
     var ax = 0;
     var ay = 0;
-    var base = Math.random()*10+10;
-    var height = Math.random()*10+10;
+    var base = 12;
+    var height = 20;
     var acc = new JSVector(ax, ay);
     vehicles.push(new Vehicle(loc, vel, acc, base, height));
   }
@@ -79,15 +83,18 @@ function seperationsliderhandle(){
 
 function cohesionsliderhandle(){
   console.log(this.nextSibling);
+  this.nextSibling.nextSibling.firstChild.nodeValue = this.value;
   cohesionval = this.value;
 }
 
 function alignmentsliderhandle(){
   console.log(this.nextSibling);
+  this.nextSibling.nextSibling.firstChild.nodeValue = this.value;
   alignmentval = this.value;
 }
 
 function vehiclemaxspeedhandle(){
   console.log(this.nextSibling);
+  this.nextSibling.nextSibling.firstChild.nodeValue = this.value;
   vehiclemaxspeedval = this.value;
 }
