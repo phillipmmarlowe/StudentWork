@@ -34,8 +34,8 @@ Vehicle.prototype.render = function(){
 Vehicle.prototype.update = function(){
   this.seperation();
   this.cohesion();
-  //if(this.lifespan>300){
   this.alignment();
+  //if(this.lifespan>300){
   this.acc.limit(.1);
   this.vel.x += this.acc.x;
   this.vel.y += this.acc.y;
