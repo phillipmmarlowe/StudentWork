@@ -2,15 +2,15 @@ window.onload = init;//  After the window has been loaded, go to init
 
 // global variables for canvas and context
 // var numsnakes = 4;
-// var snakes = [];
-var maxspeed = 2;
-var maxsteeringsep = .3;
-var seperationradius = 50;
-var maxsteeringcoh = .3;
-var cohesionradius = 100;
-var maxsteeringalign = .1;
-var alignmentradius = 100;
-  var eco;
+// // var snakes = [];
+// var maxspeed = 2;
+// var maxsteeringsep = .3;
+// var seperationradius = 50;
+// var maxsteeringcoh = .3;
+// var cohesionradius = 100;
+// var maxsteeringalign = .1;
+// var alignmentradius = 100;
+var eco;
 function init(){
   //get the canvas
   // canvas = document.getElementById('cnv');

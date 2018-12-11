@@ -1,53 +1,73 @@
-
-
-function Ball(loc, vel, rad, acc){
+var maxspeed = 2;
+var maxsteeringsep = .4;
+var seperationradius = 50;
+var maxsteeringcoh = .3;
+var cohesionradius = 100;
+var maxsteeringalign = .1;
+var alignmentradius = 100;
+function Vehicle(loc, vel, acc, base, height){
   this.loc = loc;
   this.vel = vel;
   this.acc = acc;
-  this.rad = rad;
+  this.height = height;
+  this.base = base;
   var red = Math.random()*128+128;
   var green = Math.random()*128+128;
   var blue = Math.random()*128+128;
   this.color = "rgb("+red+","+green+","+blue+")";
+  //this.lifespan = 0;
 }
 
-Ball.prototype.run = function(){
+Vehicle.prototype.render = function(){
+  ctx.strokeStyle = this.color;
+  ctx.fillStyle = this.color;
+  ctx.save();
+  ctx.translate(this.loc.x,this.loc.y);
+  ctx.rotate(this.vel.getDirection());
+  ctx.beginPath();
+  ctx.moveTo(0-this.height/2,0-this.base/2);
+  ctx.lineTo(this.height/2,0);
+  ctx.lineTo(0-this.height/2,this.base/2);
+  //ctx.moveTo(-10,-10);
+  //ctx.lineTo(10,0);
+  //ctx.lineTo(-10,10);
+  //ctx.arc(this.loc.x,this.loc.y, this.rad, Math.PI*2, 0, false);
+  ctx.fill();
+  ctx.restore();
+}
+Vehicle.prototype.update = function(){
+  this.seperation();
+  this.seperationSnake();
+  this.cohesion();
+  this.alignment();
+  //if(this.lifespan>300){
+  //this.acc.limit(.1);
+  this.vel.x += this.acc.x;
+  this.vel.y += this.acc.y;
+  //this.vel.limit(maxspeed);
+  this.loc.x += this.vel.x;
+  this.loc.y += this.vel.y;
+  // this.acc.x = Math.random()*2-1;
+  // this.acc.y = Math.random()*2-1;
+  this.acc.multiply(0);
+  this.lifespan += 1;
+  this.render();
+}
+Vehicle.prototype.run = function(){
   this.checkEdges();
   this.update();
 }
-
-Ball.prototype.checkEdges = function(){
+Vehicle.prototype.checkEdges = function(){
   if(this.loc.x > canvas.width)  this.loc.x = 0;
   if(this.loc.x < 0) this.loc.x = canvas.width;
   if(this.loc.y > canvas.height)  this.loc.y = 0;
   if(this.loc.y < 0) this.loc.y = canvas.height;
 }
 
-Ball.prototype.update = function(){
-  this.seperation();
-  this.cohesion();
-  this.alignment();
-  this.vel.x += this.acc.x;
-  this.vel.y += this.acc.x;
-  this.loc.x += this.vel.x;
-  this.loc.y += this.vel.y;
-  this.acc.multiply(0);
-  this.render();
-}
-
-Ball.prototype.render = function(){
-  ctx.strokeStyle = this.color;
-  ctx.fillStyle = this.color;
-  ctx.beginPath();
-  ctx.arc(this.loc.x,this.loc.y, this.rad, Math.PI*2, 0, false);
-  ctx.stroke();
-  ctx.fill();
-}
-
-Ball.prototype.seperation = function(){
+Vehicle.prototype.seperation = function(){
   var sum = new JSVector();
-  for(var i=0;i<eco.balls.length;i++){
-    var v = eco.balls[i];
+  for(var i=0;i<eco.vehicles.length;i++){
+    var v = eco.vehicles[i];
     if(v==this){
       continue;
     }
@@ -65,7 +85,8 @@ Ball.prototype.seperation = function(){
   }
 }
 
-Ball.prototype.seperationSnake = function(){
+  //Seperate from Snakes
+Vehicle.prototype.seperationSnake = function(){
   var sumSnake = new JSVector();
   for(var i=0;i<eco.snakes.length;i++){
     for(var i=0;i<eco.snakes.length;i++){
@@ -85,11 +106,11 @@ Ball.prototype.seperationSnake = function(){
   }
 }
 
-Ball.prototype.cohesion = function(){
+Vehicle.prototype.cohesion = function(){
   var sum = new JSVector();
   var count = 0;
-  for(var i=0;i<eco.balls.length;i++){
-    var v = eco.balls[i];
+  for(var i=0;i<eco.vehicles.length;i++){
+    var v = eco.vehicles[i];
     if(v==this){
       continue;
     }
@@ -110,7 +131,7 @@ Ball.prototype.cohesion = function(){
   }
 }
 
-Ball.prototype.alignment = function(){
+Vehicle.prototype.alignment = function(){
   var sum = new JSVector();
   var count = 0;
   for(var i=0;i<eco.vehicles.length;i++){
@@ -132,6 +153,6 @@ Ball.prototype.alignment = function(){
   }
 }
 
-Ball.prototype.applyForce = function(force){
+Vehicle.prototype.applyForce = function(force){
   this.acc.add(force);
 }

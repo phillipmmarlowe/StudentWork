@@ -5,7 +5,7 @@ function Segment(){
 function Segment0(){
   //this.segrad = 10;
   this.loc = new JSVector();
-  this.vel = new JSVector(2,2);
+  this.vel = new JSVector(Math.random()*5,Math.random()*5);
   this.acc = new JSVector();
 }
 function Snake(radius){
@@ -51,6 +51,8 @@ Snake.prototype.checkEdges = function(){
 
 
 Snake.prototype.update = function(){
+  this.seglist[0].vel.x+=this.seglist[0].acc.x;
+  this.seglist[0].vel.y+=this.seglist[0].acc.y;
   this.seglist[0].loc.x+=this.seglist[0].vel.x;
   this.seglist[0].loc.y+=this.seglist[0].vel.y;
   for (var i=1;i<this.seglist.length;i++){
@@ -63,76 +65,4 @@ Snake.prototype.move = function(targetloc, moverloc, distance){
   temp.setMagnitude(distance);
   temp = temp.add(targetloc.loc);
   moverloc.loc = temp;
-}
-
-Snake.prototype.seperation = function(){
-  var sum = new JSVector();
-  for(var i=0;i<vehicles.length;i++){
-    var v = vehicles[i];
-    if(v==this){
-      continue;
-    }
-    if(this.loc.distance(v.loc)<seperationradius){
-      var desired = JSVector.subGetNew(this.loc,v.loc);
-      desired.setMagnitude(maxspeed);
-      sum.add(desired);
-    }
-  }
-  if(sum.getMagnitude()>0){
-    sum.setMagnitude(maxspeed);
-    var steering = JSVector.subGetNew(sum,this.vel);
-    steering.limit(maxsteeringsep);
-    this.applyForce(steering);
-  }
-
-}
-
-Snake.prototype.cohesion = function(){
-  var sum = new JSVector();
-  var count = 0;
-  for(var i=0;i<vehicles.length;i++){
-    var v = vehicles[i];
-    if(v==this){
-      continue;
-    }
-    if(this.loc.distance(v.loc)<cohesionradius){
-      sum.add(v.loc);
-      count++;
-    }
-  }
-  if(sum.getMagnitude()>0){
-  sum.divide(count);
-  var desired = JSVector.subGetNew(sum,this.loc);
-  var steering = JSVector.subGetNew(desired,this.vel);
-  steering.limit(maxsteeringcoh);
-  this.applyForce(steering);
-  } else {
-    var steering = new JSVector();
-    this.applyForce(steering);
-  }
-}
-
-Snake.prototype.alignment = function(){
-  var sum = new JSVector();
-  var count = 0;
-  for(var i=0;i<vehicles.length;i++){
-    var v = vehicles[i];
-    if(v==this){
-      continue;
-    }
-    if(this.loc.distance(v.loc)<alignmentradius){
-      sum.add(v.vel);
-      count++;
-    }
-  }
-  if(count>0){
-    var desired = sum.divide(count);
-    desired.setMagnitude(maxspeed);
-    var steering = JSVector.subGetNew(desired,this.vel);
-    steering.setMagnitude(maxsteeringalign);
-    this.applyForce(steering);
-  }
-}
-Snake.prototype.applyForce = function(force){
-  this.acc.add(force);
 }
