@@ -1,7 +1,7 @@
 var maxspeed = 2;
-var maxsteeringsep = .4;
+var maxsteeringsep = 1;
 var seperationradius = 50;
-var maxsteeringcoh = .3;
+var maxsteeringcoh = 0.3;
 var cohesionradius = 100;
 var maxsteeringalign = .1;
 var alignmentradius = 100;
@@ -40,6 +40,7 @@ Vehicle.prototype.update = function(){
   this.seperationSnake();
   this.cohesion();
   this.alignment();
+  this.acc.limit(0.1);
   //if(this.lifespan>300){
   //this.acc.limit(.1);
   this.vel.x += this.acc.x;

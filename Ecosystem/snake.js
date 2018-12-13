@@ -38,7 +38,7 @@ Snake.prototype.render = function(){
     ctx.strokeStyle = this.color;
     ctx.fillStyle = this.color;
     ctx.beginPath();
-    ctx.arc(this.seglist[i].loc.x,this.seglist[i].loc.y,this.radius, 0, Math.PI*2, false);
+    ctx.arc(this.seglist[i].loc.x,this.seglist[i].loc.y,this.radius-i, 0, Math.PI*2, false);
     ctx.stroke();
     ctx.fill();
 }
@@ -56,7 +56,7 @@ Snake.prototype.update = function(){
   this.seglist[0].loc.x+=this.seglist[0].vel.x;
   this.seglist[0].loc.y+=this.seglist[0].vel.y;
   for (var i=1;i<this.seglist.length;i++){
-    this.move(this.seglist[i-1],this.seglist[i],this.segdist);
+    this.move(this.seglist[i-1],this.seglist[i],this.segdist-i);
   }
 }
 

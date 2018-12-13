@@ -7,7 +7,7 @@ function Ecosystem(){
   this.snakes = [];
   this.numBalls = 50;
   this.balls = [];
-  this.numOrbiters = 4;
+  this.numOrbiters = 3;
   this.orbiters = [];
   canvas = document.getElementById('cnv');
   // Set the dimensions of the canvas
@@ -39,8 +39,8 @@ function Ecosystem(){
     var x = Math.random()*canvas.width;
     var y = Math.random()*canvas.height;
     var loc = new JSVector(x, y);
-    var dx = Math.random()*10-5;
-    var dy = Math.random()*10-5;
+    var dx = Math.random()*2-1;
+    var dy = Math.random()*2-1;
     var vel = new JSVector(dx, dy);
     var ax = 0;
     var ay = 0;

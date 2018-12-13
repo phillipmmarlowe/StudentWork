@@ -27,10 +27,12 @@ Ball.prototype.update = function(){
   this.seperation();
   this.cohesion();
   this.alignment();
+  //this.acc.limit(.1);
   this.vel.x += this.acc.x;
-  this.vel.y += this.acc.x;
+  this.vel.y += this.acc.y;
   this.loc.x += this.vel.x;
   this.loc.y += this.vel.y;
+  this.vel.setMagnitude(maxspeed);
   this.acc.multiply(0);
   this.render();
 }
@@ -38,10 +40,14 @@ Ball.prototype.update = function(){
 Ball.prototype.render = function(){
   ctx.strokeStyle = this.color;
   ctx.fillStyle = this.color;
+  ctx.save();
+  //ctx.translate(this.loc.x,this.loc.y);
+  //ctx.rotate(this.vel.getDirection());
   ctx.beginPath();
-  ctx.arc(this.loc.x,this.loc.y, this.rad, Math.PI*2, 0, false);
-  ctx.stroke();
+  ctx.arc(this.loc.x,this.loc.y, this.rad, 0, Math.PI*2, false);
   ctx.fill();
+  ctx.stroke();
+  ctx.restore();
 }
 
 Ball.prototype.seperation = function(){
